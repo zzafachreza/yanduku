@@ -83,6 +83,7 @@ export default function VaksinAdd({ navigation, route }) {
             axios.post(apiURL + 'vaksin_add', {
                 fid_anak: kirim.id,
                 nama_vaksin: kirim.nama_vaksin,
+                tanggal_vaksin: kirim.tanggal_vaksin,
                 vaksin: vaksin.filter(i => i.cek > 0)
             }).then(res => {
                 console.log(res.data);
@@ -123,123 +124,98 @@ export default function VaksinAdd({ navigation, route }) {
 
             }}>
 
-                <View style={{
-                    padding: 20,
-                    marginBottom: 20,
+                <ScrollView>
+                    <View style={{
+                        padding: 20,
+                        marginBottom: 20,
 
-                    borderRadius: 30,
-                }}>
+                        borderRadius: 30,
+                    }}>
 
-                    {/* <MyPicker iconname="eyedrop-outline"
-                        label="Nama Vaksin" data={[
-                            {
-                                label: 'HBO',
-                                value: 'HBO'
-                            },
-                            {
-                                label: 'BCG',
-                                value: 'BCG'
-                            },
-                            {
-                                label: 'DPT-HB-Hib',
-                                value: 'DPT-HB-Hib'
-                            },
-                            {
-                                label: 'Polio',
-                                value: 'Polio'
-                            },
-                            {
-                                label: 'Campak',
-                                value: 'Campak'
-                            },
-                            {
-                                label: 'Booster DPT-HB-Hib',
-                                value: 'Booster DPT-HB-Hib'
-                            },
-                            {
-                                label: 'Booster MR',
-                                value: 'Booster MR'
-                            },
-                        ]} value={kirim.nama_vaksin} onValueChange={x => {
+
+                        <MyCalendar label="Tanggal Imunisasi" value={kirim.tanggal_vaksin} onDateChange={x => {
                             setKirim({
                                 ...kirim,
-                                nama_vaksin: x
+                                tanggal_vaksin: x
                             })
-                        }} /> */}
-
-                    <FlatList data={vaksin} renderItem={({ item, index }) => {
-                        return (
-                            <View style={{
-                                padding: 10,
-                                borderWidth: 1,
-                                marginVertical: 5,
-                                borderRadius: 10,
-                                borderColor: colors.border,
-                                flexDirection: 'row'
-                            }}>
-                                <Text style={{
-                                    flex: 1,
-                                    fontFamily: fonts.primary[400],
-                                    color: colors.primary,
-                                    fontSize: 15,
-                                }}>{item.nama}</Text>
-                                <TouchableOpacity onPress={() => {
-                                    let tmp = [...vaksin];
-                                    if (tmp[index].cek > 0) {
-                                        tmp[index].cek = 0;
-                                    } else {
-                                        tmp[index].cek = 1;
-                                    }
-                                    setVaksin(tmp);
-                                }} style={{
-                                    width: 50,
-                                    justifyContent: 'center',
-                                    alignItems: 'center',
-
+                        }} />
+                        <FlatList data={vaksin} renderItem={({ item, index }) => {
+                            return (
+                                <View style={{
+                                    padding: 10,
+                                    borderWidth: 1,
+                                    marginVertical: 5,
+                                    borderRadius: 10,
+                                    borderColor: colors.border,
+                                    flexDirection: 'row'
                                 }}>
-                                    <Icon color={item.cek > 0 ? colors.success : colors.border} type='ionicon' name='checkmark-circle' size={30} />
-                                </TouchableOpacity>
-                            </View>
-                        )
-                    }} />
+                                    <Text style={{
+                                        flex: 1,
+                                        fontFamily: fonts.primary[400],
+                                        color: colors.primary,
+                                        fontSize: 15,
+                                    }}>{item.nama}</Text>
+                                    <TouchableOpacity onPress={() => {
+                                        let tmp = [...vaksin];
+                                        if (tmp[index].cek > 0) {
+                                            tmp[index].cek = 0;
+                                        } else {
+                                            tmp[index].cek = 1;
+                                        }
+                                        setVaksin(tmp);
+                                    }} style={{
+                                        width: 50,
+                                        justifyContent: 'center',
+                                        alignItems: 'center',
+
+                                    }}>
+                                        <Icon color={item.cek > 0 ? colors.success : colors.border} type='ionicon' name='checkmark-circle' size={30} />
+                                    </TouchableOpacity>
+                                </View>
+                            )
+                        }} />
 
 
 
-                </View>
-
-
-
-
-
-                {loading && <ActivityIndicator size="large" color={colors.secondary} />}
-
-                {!loading && <TouchableOpacity onPress={simpan} style={{
-                    marginBottom: 20,
-                    height: 50,
-                    flexDirection: 'row',
-                    alignItems: 'center',
-                    justifyContent: 'flex-end',
-                    marginRight: 10,
-                }}>
-                    <Text style={{
-                        fontFamily: fonts.primary[600],
-                        fontSize: 18,
-                        color: colors.secondary,
-                        marginRight: 10,
-                    }}>SIMPAN</Text>
-                    <View style={{
-                        width: 40,
-                        height: 40,
-                        borderWidth: 1,
-                        justifyContent: 'center',
-                        alignItems: 'center',
-                        borderRadius: 10,
-                        borderColor: colors.secondary,
-
-                    }}>
-                        <Icon type='ionicon' color={colors.secondary} name='checkmark' />
                     </View>
-                </TouchableOpacity>}
+
+
+
+
+
+                    {loading && <ActivityIndicator size="large" color={colors.secondary} />}
+
+                    {!loading && <TouchableOpacity onPress={simpan} style={{
+                        marginBottom: 20,
+                        height: 50,
+                        flexDirection: 'row',
+                        alignItems: 'center',
+                        justifyContent: 'flex-end',
+                        marginRight: 10,
+                    }}>
+                        <Text style={{
+                            fontFamily: fonts.primary[600],
+                            fontSize: 18,
+                            color: colors.secondary,
+                            marginRight: 10,
+                        }}>SIMPAN</Text>
+                        <View style={{
+                            width: 40,
+                            height: 40,
+                            borderWidth: 1,
+                            justifyContent: 'center',
+                            alignItems: 'center',
+                            borderRadius: 10,
+                            borderColor: colors.secondary,
+
+                        }}>
+                            <Icon type='ionicon' color={colors.secondary} name='checkmark' />
+                        </View>
+                    </TouchableOpacity>}
+                </ScrollView>
+
+
+
 
             </View>
 
