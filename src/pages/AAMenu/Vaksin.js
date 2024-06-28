@@ -21,6 +21,7 @@ export default function ({ navigation, route }) {
         axios.post(apiURL + 'vaksin', {
             fid_anak: item.id
         }).then(res => {
+            console.log(res.data);
             setData(res.data);
         }).finally(() => {
             setLoading(false)

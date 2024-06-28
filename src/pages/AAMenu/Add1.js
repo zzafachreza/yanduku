@@ -21,6 +21,7 @@ export default function Add1({ navigation, route }) {
         berat_lahir: '',
         panjang_lahir: '',
         riwayat_kelahiran: '',
+        tanggal_vaksin: moment().format('YYYY-MM-DD'),
         alamat_lengkap: '',
         fid_user: '',
     });

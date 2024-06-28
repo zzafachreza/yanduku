@@ -7,6 +7,7 @@ import { Icon } from 'react-native-elements';
 import axios from 'axios';
 import SweetAlert from 'react-native-sweet-alert';
 import { Value } from 'react-native-reanimated';
+import moment from 'moment';
 
 export default function Add4({ navigation, route }) {
     const [kirim, setKirim] = useState(route.params);
@@ -25,7 +26,8 @@ export default function Add4({ navigation, route }) {
         }).then(res => {
             console.log(res.data);
             navigation.navigate('Add5', {
-                id: kirim.id
+                id: kirim.id,
+                tanggal_vaksin: moment().format('YYYY-MM-DD')
             });
 
         }).finally(res => {
